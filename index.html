@@ -57,6 +57,14 @@
       } else { copyFallback(COPY_TEXT); }
     });
     document.getElementById('btn-download-image').addEventListener('click', function(){
+      var ua = (navigator.userAgent || '').toLowerCase();
+      var isWeChatMobile = /micromessenger/.test(ua) && /mobile|iphone|ipod|ipad|android/.test(ua);
+      if (isWeChatMobile) {
+        // 在手机微信内，直接打开图片并提示长按保存
+        try { window.open(IMG_URL, '_blank'); } catch (e) { location.href = IMG_URL; }
+        showToast('微信内请长按图片保存');
+        return;
+      }
       try{
         var a = document.createElement('a'); a.href = IMG_URL; a.download = '海报.jpg'; a.rel = 'noopener';
         document.body.appendChild(a); a.click(); document.body.removeChild(a); showToast('开始下载');
