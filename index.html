@@ -39,7 +39,10 @@
   #btn-download-image{background:#34a853;color:#fff}
   #btn-download-image:active{background:#2b8a45}
   #dlc-toast{margin-left:8px;font-size:16px;color:#0b8043}
-  @media (max-width:600px){#dlc-toolbar{bottom:10px;padding:10px 12px}#dlc-toolbar button{font-size:17px;min-width:120px;padding:12px 16px}}
+  #dlc-floating-tip{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.8);color:#fff;padding:20px 30px;border-radius:12px;font-size:18px;z-index:2147483648;text-align:center;max-width:300px;line-height:1.4;box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+  #dlc-floating-tip .tip-close{position:absolute;top:8px;right:12px;font-size:24px;cursor:pointer;color:#fff;opacity:0.7}
+  #dlc-floating-tip .tip-close:hover{opacity:1}
+  @media (max-width:600px){#dlc-toolbar{bottom:10px;padding:10px 12px}#dlc-toolbar button{font-size:17px;min-width:120px;padding:12px 16px}#dlc-floating-tip{padding:16px 24px;font-size:16px;max-width:280px}}
   </style>
   <script>
   (function(){
@@ -57,19 +60,36 @@
       } else { copyFallback(COPY_TEXT); }
     });
     document.getElementById('btn-download-image').addEventListener('click', function(){
-      var ua = (navigator.userAgent || '').toLowerCase();
-      var isWeChatMobile = /micromessenger/.test(ua) && /mobile|iphone|ipod|ipad|android/.test(ua);
+      // 检测是否为手机微信浏览器
+      var isWeChatMobile = /MicroMessenger/i.test(navigator.userAgent) && /Mobile/i.test(navigator.userAgent);
+      
       if (isWeChatMobile) {
-        // 在手机微信内，直接打开图片并提示长按保存
-        try { window.open(IMG_URL, '_blank'); } catch (e) { location.href = IMG_URL; }
-        showToast('微信内请长按图片保存');
+        showFloatingTip('请在微信中长按图片保存到相册');
         return;
       }
+      
       try{
         var a = document.createElement('a'); a.href = IMG_URL; a.download = '海报.jpg'; a.rel = 'noopener';
         document.body.appendChild(a); a.click(); document.body.removeChild(a); showToast('开始下载');
       }catch(e){ window.open(IMG_URL, '_blank'); }
     });
+    
+    function showFloatingTip(message) {
+      var tip = document.createElement('div');
+      tip.id = 'dlc-floating-tip';
+      tip.innerHTML = '<span class="tip-close">&times;</span>' + message;
+      document.body.appendChild(tip);
+      
+      // 点击关闭按钮或3秒后自动关闭
+      tip.querySelector('.tip-close').addEventListener('click', function() {
+        document.body.removeChild(tip);
+      });
+      setTimeout(function() {
+        if (document.body.contains(tip)) {
+          document.body.removeChild(tip);
+        }
+      }, 3000);
+    }
   })();
   </script>
 </div>
