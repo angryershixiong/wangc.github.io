@@ -53,10 +53,10 @@
     function copyFallback(text){
       var ta = document.createElement('textarea');
       ta.value = text; ta.setAttribute('readonly',''); ta.style.position='absolute'; ta.style.left='-9999px';
-      document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); showToast('已复制'); }catch(e){ showToast('复制失败'); } finally{ document.body.removeChild(ta);} }
+      document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); showFloatingTip('文字已复制到剪贴板'); }catch(e){ showFloatingTip('复制失败，请手动复制'); } finally{ document.body.removeChild(ta);} }
     document.getElementById('btn-copy-text').addEventListener('click', function(){
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(COPY_TEXT).then(function(){ showToast('已复制'); }, function(){ copyFallback(COPY_TEXT); });
+        navigator.clipboard.writeText(COPY_TEXT).then(function(){ showFloatingTip('文字已复制到剪贴板'); }, function(){ copyFallback(COPY_TEXT); });
       } else { copyFallback(COPY_TEXT); }
     });
     document.getElementById('btn-download-image').addEventListener('click', function(){
@@ -64,14 +64,14 @@
       var isWeChatMobile = /MicroMessenger/i.test(navigator.userAgent) && /Mobile/i.test(navigator.userAgent);
       
       if (isWeChatMobile) {
-        showFloatingTip('请在微信中长按图片保存到手机');
+        showFloatingTip('请在微信中长按图片保存到相册');
         return;
       }
       
       try{
         var a = document.createElement('a'); a.href = IMG_URL; a.download = '海报.jpg'; a.rel = 'noopener';
-        document.body.appendChild(a); a.click(); document.body.removeChild(a); showToast('开始下载');
-      }catch(e){ window.open(IMG_URL, '_blank'); }
+        document.body.appendChild(a); a.click(); document.body.removeChild(a); showFloatingTip('图片开始下载');
+      }catch(e){ window.open(IMG_URL, '_blank'); showFloatingTip('图片在新窗口打开'); }
     });
     
     function showFloatingTip(message) {
