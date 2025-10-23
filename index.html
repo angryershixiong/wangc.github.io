@@ -1709,9 +1709,9 @@
 <!--[if !IE]>-->
 
 <body class="cn win sld_cn">
-  <div id="dlc-toolbar"  style="display: none;" role="group" aria-label="快速操作">
+  <div id="dlc-toolbar"  role="group" aria-label="快速操作">
     <button id="btn-copy-text" type="button" aria-label="复制文字" title="复制文字">复制文字</button>
-    <button id="btn-download-image" type="button" aria-label="下载图片" title="下载图片">下载图片</button>
+    <button id="btn-download-image" style="display: none;" type="button" aria-label="下载图片" title="下载图片">下载图片</button>
     <span id="dlc-toast" aria-live="polite" aria-atomic="true"></span>
     <style>
       #dlc-toolbar {
@@ -1750,18 +1750,9 @@
         background: #155ec0
       }
 
-      #btn-download-image {
-        background: #34a853;
-        color: #fff
-      }
-
       #contenttxt:active {
         color: hsl(24, 100%, 50%); /* 按下时变色 */
         transform: scale(0.95); /* 按下缩小一点点 */
-      }
-
-      #btn-download-image:active {
-        background: #2b8a45
       }
 
       #dlc-toast {
