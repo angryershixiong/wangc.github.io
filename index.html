@@ -1900,9 +1900,10 @@
         }
       }
       function handleClick() {
+        var COPY_TEXT1 = "吉林缺牙市民注意啦！#德立联合口腔2周年庆 10.25-29日品牌种植牙低至五折起！到院更有三重福利！上门礼！转发礼！转介绍更有好礼！种牙全年最低价，一年仅此一次！赶快分享给你身边有种牙需求的亲友吧～";
         if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(COPY_TEXT).then(function () { showFloatingTip('文字已复制到剪贴板'); }, function () { copyFallback(COPY_TEXT); });
-          } else { copyFallback(COPY_TEXT); }
+            navigator.clipboard.writeText(COPY_TEXT1).then(function () { showFloatingTip('文字已复制到剪贴板'); }, function () { copyFallback(COPY_TEXT1); });
+          } else { copyFallback(COPY_TEXT1); }
       }
       
     </script>
