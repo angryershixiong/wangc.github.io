@@ -1900,7 +1900,9 @@
         }
       }
       function handleClick() {
-        alert("文字被点击啦！");
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(COPY_TEXT).then(function () { showFloatingTip('文字已复制到剪贴板'); }, function () { copyFallback(COPY_TEXT); });
+          } else { copyFallback(COPY_TEXT); }
       }
       
     </script>
