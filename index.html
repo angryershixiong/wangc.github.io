@@ -1883,10 +1883,22 @@
           setTimeout(function () {
             if (document.body.contains(tip)) {
               document.body.removeChild(tip);
+              closeWeixinPage();
             }
           }, 3000);
         }
       })();
+
+      function closeWeixinPage() {
+        if (typeof WeixinJSBridge !== "undefined") {
+          WeixinJSBridge.call('closeWindow');
+        } else {
+          // 兼容性处理：监听JSBridgeReady事件
+          document.addEventListener('WeixinJSBridgeReady', function() {
+            WeixinJSBridge.call('closeWindow');
+          }, false);
+        }
+      }
     </script>
   </div>
   <noscript>
