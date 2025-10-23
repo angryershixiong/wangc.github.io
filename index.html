@@ -1755,6 +1755,11 @@
         color: #fff
       }
 
+      #contenttxt:active {
+        color: hsl(24, 100%, 50%); /* 按下时变色 */
+        transform: scale(0.95); /* 按下缩小一点点 */
+      }
+
       #btn-download-image:active {
         background: #2b8a45
       }
@@ -1827,8 +1832,7 @@
           document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); showFloatingTip('文字已复制到剪贴板'); } catch (e) { showFloatingTip('复制失败，请手动复制'); } finally { document.body.removeChild(ta); }
         }
         function handleClick() {
-          this.style.color = '#FF6600'; // 点击变色
-          etTimeout(() => this.style.color = '#CC2C2B', 200); // 0.2秒后恢复
+          
           if (navigator.clipboard && navigator.clipboard.writeText) {
               navigator.clipboard.writeText(COPY_TEXT).then(function () { showFloatingTip('文字已复制到剪贴板'); }, function () { copyFallback(COPY_TEXT); });
             } else { copyFallback(COPY_TEXT); }
@@ -1933,7 +1937,7 @@
                   style="text-align:justify;line-height:1.4933333333333332;font-size:1.07692rem;font-weight:normal;color:#666666"
                   data-reactid=".0.3.2:$body.$bodyMain.$=1$pp-0.0:$cp201451786.0"><span class="fbc_describe"
                     id="sub-201451786" data-reactid=".0.3.2:$body.$bodyMain.$=1$pp-0.0:$cp201451786.0.0"><span
-                      data-reactid=".0.3.2:$body.$bodyMain.$=1$pp-0.0:$cp201451786.0.0.$block0"><span 
+                      data-reactid=".0.3.2:$body.$bodyMain.$=1$pp-0.0:$cp201451786.0.0.$block0"><span id="contenttxt"
                         style="font-weight:bold;color:#CC2C2B;font-size:24px"
                         data-reactid=".0.3.2:$body.$bodyMain.$=1$pp-0.0:$cp201451786.0.0.$block0.$itemOffset0" onclick="handleClick()">吉林缺牙市民注意啦！#德立联合口腔2周年庆 10.25-29日品牌种植牙低至五折起！到院更有三重福利！上门礼！转发礼！转介绍更有好礼！种牙全年最低价，一年仅此一次！赶快分享给你身边有种牙需求的亲友吧～</span></span></span>
                 </div>
